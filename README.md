@@ -1,268 +1,208 @@
-# Sports Facility Court Booking Platform
+<p align="center">
+  <img src="logo.svg" width="200px" align="center" alt="Zod logo" />
+  <h1 align="center">Zod</h1>
+  <p align="center">
+    TypeScript-first schema validation with static type inference
+    <br/>
+    by <a href="https://x.com/colinhacks">@colinhacks</a>
+  </p>
+</p>
+<br/>
 
-A full-stack web application for managing sports facility bookings with multi-resource scheduling, dynamic pricing, and waitlist functionality.
+<p align="center">
+<a href="https://github.com/colinhacks/zod/actions?query=branch%3Amaster"><img src="https://github.com/colinhacks/zod/actions/workflows/test.yml/badge.svg?event=push&branch=master" alt="Zod CI status" /></a>
+<a href="https://opensource.org/licenses/MIT" rel="nofollow"><img src="https://img.shields.io/github/license/colinhacks/zod" alt="License"></a>
+<a href="https://www.npmjs.com/package/zod" rel="nofollow"><img src="https://img.shields.io/npm/dw/zod.svg" alt="npm"></a>
+<a href="https://discord.gg/KaSRdyX2vc" rel="nofollow"><img src="https://img.shields.io/discord/893487829802418277?label=Discord&logo=discord&logoColor=white" alt="discord server"></a>
+<a href="https://github.com/colinhacks/zod" rel="nofollow"><img src="https://img.shields.io/github/stars/colinhacks/zod" alt="stars"></a>
+</p>
+
+<div align="center">
+  <a href="https://zod.dev/api">Docs</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="https://discord.gg/RcG33DQJdf">Discord</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="https://twitter.com/colinhacks">𝕏</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="https://bsky.app/profile/zod.dev">Bluesky</a>
+  <br />
+</div>
+
+<br/>
+<br/>
+
+<h2 align="center">Featured sponsor: Jazz</h2>
+
+<div align="center">
+  <a href="https://jazz.tools/?utm_source=zod">
+    <picture width="85%" >
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/garden-co/jazz/938f6767e46cdfded60e50d99bf3b533f4809c68/homepage/homepage/public/Zod%20sponsor%20message.png">
+      <img alt="jazz logo" src="https://raw.githubusercontent.com/garden-co/jazz/938f6767e46cdfded60e50d99bf3b533f4809c68/homepage/homepage/public/Zod%20sponsor%20message.png" width="85%">
+    </picture>
+  </a>
+  <br/>
+  <p><sub>Learn more about <a target="_blank" rel="noopener noreferrer" href="mailto:sponsorship@colinhacks.com">featured sponsorships</a></sub></p>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+### [Read the docs →](https://zod.dev/api)
+
+<br/>
+<br/>
+
+## What is Zod?
+
+Zod is a TypeScript-first validation library. Define a schema and parse some data with it. You'll get back a strongly typed, validated result.
+
+```ts
+import * as z from "zod/v4";
+
+const User = z.object({
+  name: z.string(),
+});
+
+// some untrusted data...
+const input = {
+  /* stuff */
+};
+
+// the parsed result is validated and type safe!
+const data = User.parse(input);
+
+// so you can use it with confidence :)
+console.log(data.name);
+```
+
+<br/>
 
 ## Features
 
-### Core Features
-- **Multi-Resource Booking**: Book courts, equipment (rackets/shoes), and coaches in a single atomic transaction
-- **Dynamic Pricing Engine**: Real-time price calculation based on configurable rules (peak hours, weekends, premium courts)
-- **Availability Checking**: Automatic conflict detection across all resource types
-- **User Booking Interface**: Intuitive booking flow with live price updates
-- **Admin Dashboard**: Comprehensive management of courts, coaches, equipment, pricing rules, and bookings
+- Zero external dependencies
+- Works in Node.js and all modern browsers
+- Tiny: `2kb` core bundle (gzipped)
+- Immutable API: methods return a new instance
+- Concise interface
+- Works with TypeScript and plain JS
+- Built-in JSON Schema conversion
+- Extensive ecosystem
 
-### Bonus Features
-- **Concurrent Booking Prevention**: Database-level constraints and RLS policies prevent double booking
-- **Waitlist System**: Users can join waitlist when slots are full; automatic notification on cancellation
+<br/>
 
-## Technology Stack
+## Installation
 
-- **Frontend**: React 18 + TypeScript + Vite
-- **UI Framework**: shadcn/ui + Tailwind CSS
-- **Backend**: Supabase (PostgreSQL + Auth + RLS)
-- **State Management**: React Hooks + Context API
-- **Routing**: React Router v6
-- **Date Handling**: date-fns
-- **Notifications**: Sonner (toast notifications)
-
-## Setup Instructions
-
-### Prerequisites
-- Node.js 18+ and pnpm installed
-- Supabase account (project already initialized)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd app-83f1dspnzo5d
-   ```
-
-2. **Install dependencies**
-   ```bash
-   pnpm install
-   ```
-
-3. **Environment variables**
-   The `.env` file is already configured with Supabase credentials:
-   ```
-   VITE_SUPABASE_URL=https://ohetejkiirjlcezacmgo.supabase.co
-   VITE_SUPABASE_ANON_KEY=<key>
-   ```
-
-4. **Database setup**
-   The database is already initialized with:
-   - All tables (profiles, courts, coaches, equipment, pricing_rules, bookings, waitlist)
-   - RLS policies for security
-   - RPC functions for availability checking and pricing
-   - Seed data for equipment and pricing rules
-
-5. **Run the application**
-   ```bash
-   pnpm run dev
-   ```
-   The app will be available at the deployment URL.
-
-## Seed Data
-
-The database includes the following seed data:
-
-### Equipment
-- **Rackets**: 10 total stock, $5 rental price
-- **Shoes**: 8 total stock, $3 rental price
-
-### Pricing Rules
-- **Peak Hours**: 6 PM - 9 PM, 1.5x multiplier (Mon-Fri)
-- **Weekend Premium**: Saturday-Sunday, 1.3x multiplier
-- **Indoor Premium**: Indoor courts, 1.2x multiplier
-
-### User Accounts
-- First registered user automatically becomes admin
-- Use username + password authentication (simulated with @miaoda.com emails)
-
-## Usage Guide
-
-### For Users
-
-1. **Sign Up / Login**
-   - Navigate to `/login`
-   - Create account with username and password
-   - First user becomes admin automatically
-
-2. **Book a Court**
-   - Go to "Book a Court" page
-   - Select date, time, and court
-   - Optionally add equipment and coach
-   - See live price calculation
-   - Confirm booking
-
-3. **Join Waitlist**
-   - If a slot is full, click "Join Waitlist"
-   - You'll be notified when the slot becomes available
-   - View your waitlist position
-
-4. **View Bookings**
-   - Go to "My Bookings" to see all your bookings
-   - Cancel bookings if needed
-   - View booking details and pricing breakdown
-
-### For Admins
-
-1. **Manage Courts**
-   - Add/edit/delete courts
-   - Set base prices and status
-   - Configure court types (indoor/outdoor)
-
-2. **Manage Coaches**
-   - Add/edit/delete coaches
-   - Set hourly rates and specialties
-   - Update availability status
-
-3. **Manage Equipment**
-   - Update inventory counts
-   - Adjust rental prices
-   - Track availability
-
-4. **Configure Pricing Rules**
-   - Create time-based pricing rules
-   - Set multipliers and surcharges
-   - Enable/disable rules dynamically
-
-5. **View All Bookings**
-   - Monitor all facility bookings
-   - View booking details and revenue
-
-6. **Manage Waitlist**
-   - View all waitlist entries
-   - Monitor waitlist positions and status
-
-7. **Manage Users**
-   - View all registered users
-   - Change user roles (user/admin)
-
-## Project Structure
-
-```
-src/
-├── components/
-│   ├── admin/              # Admin management components
-│   │   ├── CourtsManagement.tsx
-│   │   ├── CoachesManagement.tsx
-│   │   ├── EquipmentManagement.tsx
-│   │   ├── PricingRulesManagement.tsx
-│   │   ├── BookingsManagement.tsx
-│   │   ├── UsersManagement.tsx
-│   │   └── WaitlistManagement.tsx
-│   ├── common/             # Shared components
-│   │   ├── Header.tsx
-│   │   └── Footer.tsx
-│   └── ui/                 # shadcn/ui components
-├── db/
-│   ├── supabase.ts         # Supabase client
-│   └── api.ts              # API functions
-├── pages/
-│   ├── Home.tsx            # Landing page
-│   ├── Booking.tsx         # Booking interface
-│   ├── MyBookings.tsx      # User bookings
-│   ├── Admin.tsx           # Admin dashboard
-│   └── Login.tsx           # Authentication
-├── types/
-│   └── types.ts            # TypeScript interfaces
-├── routes.tsx              # Route configuration
-└── App.tsx                 # Main app component
+```sh
+npm install zod
 ```
 
-## Database Schema
+<br/>
 
-See `supabase/migrations/` for complete schema definitions.
+## Basic usage
 
-### Key Tables
-- **profiles**: User profiles with role-based access
-- **courts**: Court information and pricing
-- **coaches**: Coach profiles and rates
-- **equipment**: Equipment inventory
-- **pricing_rules**: Dynamic pricing configuration
-- **bookings**: Booking records with pricing breakdown
-- **waitlist**: Waitlist entries with position tracking
+Before you can do anything else, you need to define a schema. For the purposes of this guide, we'll use a simple object schema.
 
-### Security
-- Row Level Security (RLS) enabled on all tables
-- Admin-only access for management operations
-- Users can only view/modify their own data
-- Database-level constraints prevent double booking
+```ts
+import * as z from "zod/v4";
 
-## Key Features Implementation
-
-### Multi-Resource Booking
-- Atomic transaction ensures all resources are available
-- Availability check validates court, coach, and equipment
-- Booking fails if any resource is unavailable
-
-### Dynamic Pricing Engine
-- Modular pricing rule system
-- Rules can stack (e.g., peak + weekend + indoor)
-- Real-time calculation on frontend
-- Pricing breakdown shows all applied modifiers
-
-### Concurrent Booking Prevention
-- Unique index on (court_id, start_time, end_time) for confirmed bookings
-- RLS policies enforce access control
-- RPC functions provide atomic operations
-- Database-level constraints prevent race conditions
-
-### Waitlist System
-- Position-based queue management
-- Automatic notification on cancellation
-- Users can view their position in queue
-- Admin can monitor all waitlist entries
-
-## API Endpoints (RPC Functions)
-
-- `check_booking_availability`: Validate resource availability
-- `join_waitlist`: Add user to waitlist
-- `get_waitlist_position`: Get user's position in queue
-- `cancel_booking_with_waitlist`: Cancel booking and process waitlist
-- `process_waitlist_on_cancellation`: Notify next person in queue
-
-## Development
-
-### Linting
-```bash
-pnpm run lint
+const Player = z.object({
+  username: z.string(),
+  xp: z.number(),
+});
 ```
 
-### Build
-```bash
-pnpm run build
+### Parsing data
+
+Given any Zod schema, use `.parse` to validate an input. If it's valid, Zod returns a strongly-typed _deep clone_ of the input.
+
+```ts
+Player.parse({ username: "billie", xp: 100 });
+// => returns { username: "billie", xp: 100 }
 ```
 
-## Assumptions Made
+**Note** — If your schema uses certain asynchronous APIs like `async` [refinements](#refine) or [transforms](#transform), you'll need to use the `.parseAsync()` method instead.
 
-1. **Time Slots**: Bookings can be made for any time range (not restricted to fixed slots)
-2. **Equipment Rental**: Equipment is rented for the entire booking duration
-3. **Coach Availability**: Coaches are marked as available/unavailable globally (not time-specific)
-4. **Pricing Rules**: Rules are evaluated in order and can stack
-5. **Waitlist**: First-come-first-served basis; notified users have limited time to book
-6. **Authentication**: Username-based auth simulated with email format (username@miaoda.com)
-7. **Cancellation**: Users can cancel their own bookings; admins can cancel any booking
-8. **Equipment Tracking**: Equipment availability is tracked but not assigned to specific items
+```ts
+const schema = z.string().refine(async (val) => val.length <= 8);
 
-## Future Enhancements
+await schema.parseAsync("hello");
+// => "hello"
+```
 
-- Email/SMS notifications for waitlist
-- Calendar view for availability
-- Recurring bookings
-- Payment integration
-- Coach-specific availability schedules
-- Equipment maintenance tracking
-- Booking history analytics
-- Mobile app
+### Handling errors
 
-## License
+When validation fails, the `.parse()` method will throw a `ZodError` instance with granular information about the validation issues.
 
-MIT
+```ts
+try {
+  Player.parse({ username: 42, xp: "100" });
+} catch (err) {
+  if (err instanceof z.ZodError) {
+    err.issues;
+    /* [
+      {
+        expected: 'string',
+        code: 'invalid_type',
+        path: [ 'username' ],
+        message: 'Invalid input: expected string'
+      },
+      {
+        expected: 'number',
+        code: 'invalid_type',
+        path: [ 'xp' ],
+        message: 'Invalid input: expected number'
+      }
+    ] */
+  }
+}
+```
 
-## Support
+To avoid a `try/catch` block, you can use the `.safeParse()` method to get back a plain result object containing either the successfully parsed data or a `ZodError`. The result type is a [discriminated union](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions), so you can handle both cases conveniently.
 
-For issues or questions, please open an issue in the repository.
+```ts
+const result = Player.safeParse({ username: 42, xp: "100" });
+if (!result.success) {
+  result.error; // ZodError instance
+} else {
+  result.data; // { username: string; xp: number }
+}
+```
+
+**Note** — If your schema uses certain asynchronous APIs like `async` [refinements](#refine) or [transforms](#transform), you'll need to use the `.safeParseAsync()` method instead.
+
+```ts
+const schema = z.string().refine(async (val) => val.length <= 8);
+
+await schema.safeParseAsync("hello");
+// => { success: true; data: "hello" }
+```
+
+### Inferring types
+
+Zod infers a static type from your schema definitions. You can extract this type with the `z.infer<>` utility and use it however you like.
+
+```ts
+const Player = z.object({
+  username: z.string(),
+  xp: z.number(),
+});
+
+// extract the inferred type
+type Player = z.infer<typeof Player>;
+
+// use it in your code
+const player: Player = { username: "billie", xp: 100 };
+```
+
+In some cases, the input & output types of a schema can diverge. For instance, the `.transform()` API can convert the input from one type to another. In these cases, you can extract the input and output types independently:
+
+```ts
+const mySchema = z.string().transform((val) => val.length);
+
+type MySchemaIn = z.input<typeof mySchema>;
+// => string
+
+type MySchemaOut = z.output<typeof mySchema>; // equivalent to z.infer<typeof mySchema>
+// number
+```

@@ -1,6 +1,4 @@
-export interface Option {
-  label: string;
-  value: string;
-  icon?: React.ComponentType<{ className?: string }>;
-  withCount?: boolean;
-}
+import * as z from "./external.js";
+export * from "./external.js";
+export { z };
+export default z;
